@@ -92,7 +92,9 @@ Vagrant.configure("2") do |config|
       config.vm.network :forwarded_port, guest: 3306, host: 3306
 
       # Uncomment below to enable NFS for sharing the host machine into the coreos-vagrant VM.
-      config.vm.synced_folder ".", "/home/core/share", id: "core", :nfs => true, :mount_options => ['nolock,vers=3,udp']
+      # config.vm.synced_folder ".", "/home/core/share", id: "core", :nfs => true, :mount_options => ['nolock,vers=3,udp']
+      # config.vm.synced_folder "../webdev/masnem", "/home/core/masnem", id: "core", :nfs => true, :mount_options => ['nolock,vers=3,udp']
+       config.vm.synced_folder "../webdev/masnem", "/home/core/masnem", id: "core", type: "rsync", rsync__auto: "false"
 
       if File.exist?(CLOUD_CONFIG_PATH)
         config.vm.provision :file, :source => "#{CLOUD_CONFIG_PATH}", :destination => "/tmp/vagrantfile-user-data"
